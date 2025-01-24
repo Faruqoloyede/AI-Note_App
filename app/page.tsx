@@ -7,7 +7,7 @@ export default function Home() {
     <div className="flex">
       <Sidebar />
       <div className="flex flex-col flex-1">
-      <Topbar />
+      <Topbar title='All Notes' />
       <Main />
       </div>
     </div>
