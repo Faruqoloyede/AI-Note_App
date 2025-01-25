@@ -1,4 +1,4 @@
-import Main from "@/components/Main";
+import AllNotes from "@/components/AllNotes";
 import Sidebar from "@/components/Sidebar";
 import Topbar from "@/components/Topbar";
 
@@ -8,7 +8,7 @@ export default function Home() {
       <Sidebar />
       <div className="flex flex-col flex-1">
       <Topbar title='All Notes' />
-      <Main />
+      <AllNotes />
       </div>
     </div>
   );
