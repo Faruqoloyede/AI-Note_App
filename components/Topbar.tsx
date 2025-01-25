@@ -11,7 +11,7 @@ const Topbar = ({title}: {title: string}) => {
   return (
     <header className="bg-white dark:bg-secondary dark:text-white dark:border-none border-b-2 py-6 px-6">
         <div className="flex items-center justify-between">
-            <Image src='/logo.png'height={1000} width={100} alt="logo" className="max-lg:block hidden" />
+            {isDarkMode ? <Image src='/logo2.png'height={1000} width={100} alt="logo" className="max-lg:block hidden" /> : <Image src='/logo.png'height={1000} width={100} alt="logo" className="max-lg:block hidden" />}
             <h4 className="font-bold text-xl max-lg:hidden">{title}</h4>
             <SearchInput  />
             <div onClick={toggleDarkMode}>
