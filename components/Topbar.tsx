@@ -14,8 +14,11 @@ const Topbar = ({title}: {title: string}) => {
             {isDarkMode ? <Image src='/logo2.png'height={1000} width={100} alt="logo" className="max-lg:block hidden" /> : <Image src='/logo.png'height={1000} width={100} alt="logo" className="max-lg:block hidden" />}
             <h4 className="font-bold text-xl max-lg:hidden">{title}</h4>
             <SearchInput  />
-            <div onClick={toggleDarkMode}>
-               {isDarkMode ?  <CiLight className="text-3xl cursor-pointer" /> : <MdDarkMode className="text-3xl cursor-pointer" />}
+            <div className="flex items-center gap-5">
+              <div onClick={toggleDarkMode}>
+                {isDarkMode ?  <CiLight className="text-3xl cursor-pointer" /> : <MdDarkMode className="text-3xl cursor-pointer" />}
+              </div>
+                <button className="text-[18px] font-normal">Logout</button>
             </div>
         </div>
     </header>

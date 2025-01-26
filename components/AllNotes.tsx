@@ -47,7 +47,7 @@ const AllNotes = () => {
             </div>
             {notes.length === 0 ? <h1>You Don't have any saved note</h1> : (
                 notes.map(({id, title, content, date})=>(
-                    <Link href='/fullnote'>
+                    <Link href={`/notes/${id}`}>
                         <div key={id} className='relative bg-[#FCFCFD] dark:bg-[#222530] dark:border-[#222530] dark:text-white border-2 border-[#E4E7EC] flex flex-col h-[250px]  max-sm:w-full rounded-md'>
                         <div className='flex flex-col items-center p-4'>
                             <h4 className='font-bold text-xl'>{title}</h4>

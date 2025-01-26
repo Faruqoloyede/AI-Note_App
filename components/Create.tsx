@@ -10,7 +10,7 @@ const Create = () => {
   return (
     <div className='relative py-6 px-6'>
         <div className='flex items-center justify-between'>
-            <div className='flex items-center cursor-pointer' onClick={()=>router.push('/')}>
+            <div className='flex items-center cursor-pointer' onClick={()=>router.push('/dashboard')}>
             <MdKeyboardBackspace className='text-2xl mr-3' />
             <span>Back</span>
             </div>
