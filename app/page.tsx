@@ -3,6 +3,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { useState } from 'react';
+import { useActionState } from 'react';
+import createSession from './actions/createSession';
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -25,7 +27,7 @@ const Login = () => {
         <div className="flex items-center justify-center">
             <Image src='/logo.png'height={1000} width={100} alt="logo" />
         </div>
-        <form  className="space-y-4 mt-5">
+        <form action={createSession}  className="space-y-4 mt-5">
           <div>
             <label
               htmlFor="email"
@@ -42,7 +44,7 @@ const Login = () => {
             >
               Password
             </label>
-            <input type="password" id='password' placeholder='******'  value={formData.password} onChange={handleChange} className='w-full h-[3rem] border border-gray-300 p-2 rounded-md focus:outline-none' />
+            <input type="password" id='password' name='password' placeholder='******'  value={formData.password} onChange={handleChange} className='w-full h-[3rem] border border-gray-300 p-2 rounded-md focus:outline-none' />
           </div>
           <button
             type="submit"
