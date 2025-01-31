@@ -1,62 +1,99 @@
 'use client';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { auth } from '@/config/firebase';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { toast } from 'react-toastify';
 
-import Image from 'next/image';
-import Link from 'next/link';
-import React, { useState } from 'react';
-import { useActionState } from 'react';
-import createSession from './actions/createSession';
 
-const Login = () => {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-  });
+const SignIn = () => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState<boolean>(false);
+  const router = useRouter();
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>)=>{
+      e.preventDefault();
 
+      setLoading(true);
+      setError('');
+
+      try {
+        const userCredentials = await signInWithEmailAndPassword(auth, email, password);
+        const user = userCredentials.user
+        toast.success('login successfully');
+        router.push('/dashboard')
+
+      } catch (error: any) {
+        setError(error.message)
+      }finally{{
+        setLoading(false)
+      }}
+
+  }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-md">
-        <div className="flex items-center justify-center">
-            <Image src='/logo.png'height={1000} width={100} alt="logo" />
-        </div>
-        <form action={createSession}  className="space-y-4 mt-5">
-          <div>
+    <div className="flex justify-center items-center h-screen bg-gray-100 dark:bg-gray-900">
+      <div className="max-w-md w-full bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg">
+        <h2 className="text-2xl font-bold text-center mb-6 dark:text-white">Sign In</h2>
+        {error && (
+          <div className="bg-red-100 text-red-700 p-3 rounded mb-4 dark:bg-red-900 dark:text-red-400">
+            {error}
+          </div>
+        )}
+        <form onSubmit={handleLogin}>
+          <div className="mb-4">
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
             >
               Email
             </label>
-           <input type="email" id='email' name='email' placeholder='example@gmail.com' value={formData.email} onChange={handleChange} className='w-full h-[3rem] border border-gray-300 p-2 rounded-md focus:outline-none' />
+            <input
+              type="email"
+              id="email"
+              placeholder="Enter your email"
+              className="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
           </div>
-          <div>
+          <div className="mb-6">
             <label
               htmlFor="password"
-              className="block text-sm font-medium text-gray-700"
+              className="block text-sm font-medium text-gray-700 dark:text-gray-300"
             >
               Password
             </label>
-            <input type="password" id='password' name='password' placeholder='******'  value={formData.password} onChange={handleChange} className='w-full h-[3rem] border border-gray-300 p-2 rounded-md focus:outline-none' />
+            <input
+              type="password"
+              id="password"
+              placeholder="Enter your password"
+              className="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
           </div>
           <button
             type="submit"
-            className="w-full bg-blue text-white py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full bg-blue hover:bg-blue text-white p-3 rounded-md font-medium transition duration-300"
           >
-            Signup
+            {loading ? 'Loading' : 'Sign In'}
+
           </button>
-          <p className="text-center text-[16px] text-">Don't have an account? <Link href='/register'>Register</Link></p>
         </form>
+        <p className="mt-4 text-sm text-center dark:text-gray-300">
+          Don't have an account?{' '}
+          <a href="/register" className="text-blue-500 hover:underline">
+            Sign Up
+          </a>
+        </p>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default SignIn;
