@@ -16,7 +16,7 @@ const Sidebar = () => {
         {
             id: 'link_1',
             title: "All Notes",
-            href: '/',
+            href: '/dashboard',
             icon: <IoMdHome />
         },
         {

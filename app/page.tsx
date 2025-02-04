@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import { auth } from '@/config/firebase';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { toast } from 'react-toastify';
+import createlogin from './action/login';
 
 
 const SignIn = () => {
@@ -13,25 +14,22 @@ const SignIn = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const router = useRouter();
 
-  const handleLogin = async (e: React.FormEvent<HTMLFormElement>)=>{
-      e.preventDefault();
+const handlesubmit = async (e: React.FormEvent<HTMLFormElement>)=>{
+    e.preventDefault();
+    let email = e.currentTarget.email.value;
+    let password = e.currentTarget.password.value;
+    setLoading(true)
 
-      setLoading(true);
-      setError('');
+    try {
+      await signInWithEmailAndPassword(auth, email, password)
+      .then((usercredentials)=>{
 
-      try {
-        const userCredentials = await signInWithEmailAndPassword(auth, email, password);
-        const user = userCredentials.user
-        toast.success('login successfully');
-        router.push('/dashboard')
-
-      } catch (error: any) {
-        setError(error.message)
-      }finally{{
-        setLoading(false)
-      }}
-
-  }
+      })
+    } catch (error) {
+      
+    }
+    
+}
 
   return (
     <div className="flex justify-center items-center h-screen bg-gray-100 dark:bg-gray-900">
@@ -42,7 +40,7 @@ const SignIn = () => {
             {error}
           </div>
         )}
-        <form onSubmit={handleLogin}>
+        <form onSubmit={handlesubmit}>
           <div className="mb-4">
             <label
               htmlFor="email"
@@ -53,6 +51,7 @@ const SignIn = () => {
             <input
               type="email"
               id="email"
+              name='email'
               placeholder="Enter your email"
               className="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600"
               value={email}
@@ -70,6 +69,7 @@ const SignIn = () => {
             <input
               type="password"
               id="password"
+              name='password'
               placeholder="Enter your password"
               className="w-full p-3 mt-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:text-white dark:border-gray-600"
               value={password}

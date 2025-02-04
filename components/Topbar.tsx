@@ -4,10 +4,11 @@ import { CiLight } from "react-icons/ci";
 import { MdDarkMode } from "react-icons/md";
 import SearchInput from "./SearchInput";
 import { useTheme } from "@/context/ThemeContext";
-import { auth } from "@/config/firebase";
-import { signOut } from "firebase/auth";
+import destroycookies from "@/app/action/destroycookies";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
+import { signOut } from "firebase/auth";
+import { auth } from "@/config/firebase";
 
 
 
@@ -16,9 +17,12 @@ const Topbar = ({title}: {title: string}) => {
 
   const logout = async ()=>{
     try {
-      await signOut(auth)
-      toast.success('logout successful')
-      router.push('/')
+      const { success, error } = await destroycookies();
+      if(success){
+        router.push('/')
+      }else{
+        toast.error(error)
+      }
 
     } catch (error: any) {
       toast.error(error.message)
