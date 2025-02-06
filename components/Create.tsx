@@ -7,6 +7,8 @@ import { db, auth } from '@/config/firebase';
 import { collection, addDoc } from 'firebase/firestore';
 import { toast } from 'react-toastify';
 import { onAuthStateChanged } from 'firebase/auth';
+import useAuth from '@/hooks/useAuth';
+
 
 const Create = () => {
   // const [title, setTitle] = useState('');
@@ -15,19 +17,26 @@ const Create = () => {
   const [user, setUser] = useState<any>(null);
   const [notes, setNotes] = useState<any[]>([]);
 
+  const auth = useAuth();
+
   console.log(notes)
-  const addnote = (e: React.FormEvent<HTMLFormElement>)=>{
+  const addnote = async (e: React.FormEvent<HTMLFormElement>)=>{
     e.preventDefault();
     let text = e.currentTarget.text.value;
     let content = e.currentTarget.content.value;
-     let arrobg = [
+     let obj =
       {
         text: text,
         content: content,
         timestmamp: new Date().getDate(),
       }
-     ]
-     setNotes([...notes, arrobg])
+    const noteref = collection(db, 'users', auth?.uid, 'notes');
+
+    try {
+      const docref = await addDoc(noteref, obj)
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   return (

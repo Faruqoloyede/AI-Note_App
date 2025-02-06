@@ -17,15 +17,12 @@ const Topbar = ({title}: {title: string}) => {
 
   const logout = async ()=>{
     try {
-      const { success, error } = await destroycookies();
-      if(success){
-        router.push('/')
-      }else{
-        toast.error(error)
-      }
-
-    } catch (error: any) {
-      toast.error(error.message)
+      await signOut(auth);
+      router.push('/')
+      console.log(logout);
+      
+    } catch (error) {
+      console.log(error)
     }
   }
 
