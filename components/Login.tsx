@@ -21,7 +21,8 @@ const handlesubmit =  (e: React.FormEvent<HTMLFormElement>)=>{
     signInWithEmailAndPassword(auth, email, password)
     .then((usercredentials)=>{
       const user = usercredentials.user
-      console.log(user);
+      // console.log(user);
+      toast.success('login successfull')
       router.push('/dashboard')
       setLoading(false)
     }).catch((error)=>{

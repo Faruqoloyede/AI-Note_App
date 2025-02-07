@@ -2,8 +2,7 @@
 import React, { useState } from 'react';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '@/config/firebase';
-import { db } from '@/config/firebase';
-import { collection, addDoc } from 'firebase/firestore';
+
 
 const SignUp = () => {
   const [email, setEmail] = useState<string>('');
@@ -25,14 +24,11 @@ const SignUp = () => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-      // const userCollection = collection(db, "users");
-      // const docRef = await addDoc(userCollection, {
-      //   name: name,
-      //   email: email,
-      //   // password: password
-      // })
-      // console.log(user);
+     
       setSuccess('Successfully created');
+      setEmail('');
+      setPassword('');
+      setName('');
     } catch (error: any) {
       setError(error.message);
       console.error("Error adding document: ", error);
