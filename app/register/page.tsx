@@ -4,7 +4,7 @@ import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '@/config/firebase';
 
 
-const SignUp = () => {
+const Register = () => {
   const [email, setEmail] = useState<string>('');
   const [password, setPassword] = useState<string>('');
   const [name, setName] = useState<string>('');
@@ -122,4 +122,4 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Register;

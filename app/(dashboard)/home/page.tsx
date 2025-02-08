@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
 
-const AllNotes = () => {
+const Home = () => {
   const [notes, setNotes] = useState<any []>([]);
   const auth = useAuth();
 
@@ -26,7 +26,7 @@ const AllNotes = () => {
   }, [auth])
 
   return (
-    <div className='relative px-6 py-10 dark:bg-secondary h-screen '>
+    <div className='relative'>
       <div className={notes.length === 0 ? "" : "grid grid-cols-3 max-md:grid-cols-2 max-sm:grid-cols-1 gap-10"}>
         {notes.length === 0 ? (<div className='flex flex-col items-center'>
             <p className='text-xl text-center w-full text-secondary dark:text-white '>You don't have any saved note</p>
@@ -48,4 +48,4 @@ const AllNotes = () => {
   )
 }
 
-export default AllNotes
+export default Home

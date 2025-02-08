@@ -1,17 +1,20 @@
 import { useState, useEffect } from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "@/config/firebase";
+import { useRouter } from "next/navigation";
 
 
 function useAuth(){
     const [user, setUser] = useState<any | null>(null);
+    const router = useRouter()
    useEffect(()=>{
     const unsubscribe = onAuthStateChanged(auth, (user: any)=>{
         if(user) {
-            console.log('there is user');
             setUser(user)
         }else{
             console.log('no user');
+            router.push('/')
+            setUser(null);
         }
     })
     return ()=> unsubscribe();
@@ -21,3 +24,4 @@ function useAuth(){
 }
 
 export default useAuth;
+

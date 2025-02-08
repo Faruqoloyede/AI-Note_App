@@ -2,7 +2,6 @@
 import Link from 'next/link';
 import React, { useState, useEffect } from 'react';
 import { IoMdArrowRoundBack } from "react-icons/io";
-import { FaSave } from "react-icons/fa";
 import { db } from '@/config/firebase';
 import { collection, addDoc } from 'firebase/firestore';
 import { toast } from 'react-toastify';
@@ -50,9 +49,9 @@ const Create = () => {
   }
 
   return (
-    <div className='relative mt-10 px-6 flex flex-col bg-white dark:bg-secondary dark:text-white'>
+    <div className='relative px-6 flex flex-col bg-white dark:bg-secondary dark:text-white'>
       <div className="flex items-center justify-between">
-        <Link href='/dashboard' className='flex items-center '>
+        <Link href='/home' className='flex items-center '>
           <IoMdArrowRoundBack className='text-2xl mr-3' />
           <span className='text-secondary dark:text-white'>Back</span>
         </Link>
