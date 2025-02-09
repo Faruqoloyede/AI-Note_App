@@ -21,6 +21,7 @@ const Home = () => {
         notes.push({...doc.data(), id: doc.id});
       })
       setNotes(notes)
+      console.log(notes)
     });
     return ()=> unsubscribe();
   }, [auth])
@@ -33,11 +34,11 @@ const Home = () => {
             <Link href='/create' className='bg-blue py-4 px-6 text-white font-medium text-[18px] rounded-[20px] mt-20'>create Note</Link>
         </div>) : (
           notes.map(({id, title, content, createdAt})=>(
-            <Link href={''} key={id}>
+            <Link href={`/notes/${id}`} key={id}>
                 <div className='flex flex-col items-center p-6 border-2 border-[#F4F5F9] bg-white dark:bg-secondary dark:text-white dark:border-[#222530]'>
                 <div className='flex flex-col items-center'>
                   <h4 className='font-bold text-[20px] mb-3 '>{title}</h4>
-                  <p className='text-[16px] font-normal mb-3 text-center'>{content}</p>
+                  <p className='text-[16px] font-normal mb-3 text-center'>{content.substring(0, 90) + '...'}</p>
                 </div>
                 <span>{createdAt}</span>
               </div>

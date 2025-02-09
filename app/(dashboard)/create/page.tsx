@@ -1,6 +1,6 @@
 'use client'
 import Link from 'next/link';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import { IoMdArrowRoundBack } from "react-icons/io";
 import { db } from '@/config/firebase';
 import { collection, addDoc } from 'firebase/firestore';
@@ -9,6 +9,7 @@ import useAuth from '@/hooks/useAuth';
 
 const Create = () => {
   const [loading, setLoading] = useState(false);
+  const formRef = useRef<HTMLFormElement>(null);
   
   const date = new Date();
 
@@ -27,9 +28,11 @@ const Create = () => {
     e.preventDefault();
     setLoading(true)
 
+    const form = formRef.current;
+    if (!form) return;
     
-    let title = e.currentTarget.text.value;
-    let content = e.currentTarget.content.value;
+    let title = form.text.value;
+    let content = form.content.value;
      let obj =
       {
         title: title,
@@ -40,6 +43,8 @@ const Create = () => {
     try {
         await addDoc(noteref, obj)
         toast.success('note added successfully')
+        form.reset();
+
     } catch (error: any) {
       console.log(error);
       toast.error(error)
@@ -56,7 +61,7 @@ const Create = () => {
           <span className='text-secondary dark:text-white'>Back</span>
         </Link>
       </div>
-      <form className='mt-10' onSubmit={addnote}>
+      <form ref={formRef} className='mt-10' onSubmit={addnote}>
         <div className="flex flex-col gap-10">
           <input
             type="text"
