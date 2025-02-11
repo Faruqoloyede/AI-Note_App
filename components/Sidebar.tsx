@@ -3,8 +3,8 @@ import Link from "next/link"
 import { IoMdHome } from "react-icons/io";
 import { FaFileArchive } from "react-icons/fa";
 import { MdCreateNewFolder } from "react-icons/md";
-import { MdKeyboardVoice } from "react-icons/md";
 import { RiVoiceAiFill } from "react-icons/ri";
+
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { useTheme } from "@/context/ThemeContext";
