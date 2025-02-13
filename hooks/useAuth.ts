@@ -13,7 +13,7 @@ function useAuth(){
             setUser(user)
         }else{
             console.log('no user');
-            router.push('/')
+            router.push('/home')
             setUser(null);
         }
     })
