@@ -5,11 +5,17 @@ import { db } from '@/config/firebase';
 import useAuth from '@/hooks/useAuth';
 import { useState, useEffect } from 'react';
 import {  MdAdd, MdDelete, MdCreate} from "react-icons/md";
-
+import Create from '@/components/Create';
+import Modal from 'react-modal'
 
 
 const Home = () => {
   const [notes, setNotes] = useState<any []>([]);
+  const [isopen, setisOpen] = useState({
+    isShown: false,
+    type: 'add',
+    data: null
+  })
   const auth = useAuth();
 
   useEffect(()=>{
@@ -63,9 +69,24 @@ const Home = () => {
               </div>
         )))}
       </div>
-      <div className='fixed bottom-0 right-10 bg-blue h-16 w-16 hover:bg-blue-600 flex items-center justify-center rounded-md cursor-pointer'>
+      <div className='fixed bottom-0 right-10 bg-blue h-16 w-16 hover:bg-blue-600 flex items-center justify-center rounded-md cursor-pointer' onClick={()=> setisOpen({
+        isShown: true, type: 'add', data: null
+      })}>
           <MdAdd className='text-[32px] font-bold text-white '/>
       </div>
+      <Modal 
+        isOpen={isopen.isShown}
+        onRequestClose={()=>{}}
+        style={{
+          overlay: {
+            backgroundColor: 'rgba(0,0,0,0.2)',
+          },
+        }}
+        contentLabel=''
+        className="w-[40%] max-h-3/4 bg-white dark:bg-secondary rounded-md mx-auto mt-14 p-5 overflow-hidden"
+      >
+        <Create />
+      </Modal>
     </div>
   )
 }

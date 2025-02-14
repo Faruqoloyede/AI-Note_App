@@ -54,7 +54,7 @@ const Create = () => {
   }
 
   return (
-    <div className='relative px-6 flex flex-col bg-white dark:bg-secondary dark:text-white'>
+    <div className='relative  dark:bg-secondary dark:text-white'>
       <div className="flex items-center justify-between">
         <Link href='/home' className='flex items-center '>
           <IoMdArrowRoundBack className='text-2xl mr-3' />
@@ -72,7 +72,7 @@ const Create = () => {
           <textarea
             placeholder="Enter your note..."
             name='content'
-            className="w-full px-4 py-2 border border-gray-300 rounded-lg h-64 outline-none dark:bg-secondary dark:border-[#222530]"
+            className="w-full px-4 py-2 border border-gray-300 rounded-lg  outline-none dark:bg-secondary dark:border-[#222530]"
           />
         </div>
         <input  type="submit" value={loading? 'Adding..' : 'Add'} disabled={loading} className='bg-blue cursor-pointer px-6 rounded-md py-4 w-full mt-10 text-white font-bold' />
